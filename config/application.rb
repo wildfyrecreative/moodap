@@ -61,5 +61,16 @@ module Moodapp
     
     # Devise specific config for deployment on Heroku.
     config.assets.initialize_on_precompile = false
+    
+    # Changing the default generators
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+      g.view_specs false
+      g.helper_specs false
+      g.stylesheets = false
+      g.javascripts = false
+      g.helper = false
+    end
   end
 end

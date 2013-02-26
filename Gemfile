@@ -7,6 +7,7 @@ gem 'rails', '3.2.12'
 
 gem 'sqlite3'
 gem 'devise', '>=2.0.0'
+gem "better_errors", ">= 0.3.2"
 
 
 # Gems used only for assets and not required
@@ -23,6 +24,21 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem "factory_girl_rails"
+end
+
+group :development do
+  gem "quiet_assets", ">= 1.0.1"
+  gem "better_errors", ">= 0.3.2"
+  gem "binding_of_caller", ">= 0.6.8"
+end
+
+group :test do
+  gem "database_cleaner", ">= 0.9.1"
+  gem "email_spec", ">= 1.4.0"
+  gem "cucumber-rails", ">= 1.3.0", :require => false
+  gem "launchy", ">= 2.1.2"
+  gem "capybara", ">= 2.0.2"  
 end
 
 gem 'jquery-rails'

@@ -1,3 +1,5 @@
+<%= render :partial => 'layouts/notifications'%>
+
 <%= form_for(@location, :html => {:class => 'aui'}) do |f| %>
   <fieldset>
   <% if @location.errors.any? %>

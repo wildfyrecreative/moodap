@@ -1,6 +1,6 @@
 Moodapp::Application.routes.draw do
-  root :to => 'home#index'
-  match 'dashboard' => 'home#dashboard'
+  root :to => 'home#dashboard'
+  #match 'dashboard' => 'home#dashboard'
   
   devise_for :users
   resources :users

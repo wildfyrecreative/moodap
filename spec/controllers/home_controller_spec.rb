@@ -8,19 +8,6 @@ describe HomeController do
   end
   
   
-  describe "GET 'index'" do
-    it "should be successful" do
-      get 'index'
-      response.should be_success
-    end
-    
-    it "should redirect to dashboard" do
-      sign_in_helper
-      get 'index'
-      response.should redirect_to (dashboard_path)
-    end
-  end
-  
   # Testing access to the Dashboard
   describe "Get 'dashboard'" do
     it "should redirect to sign in page" do

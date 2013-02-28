@@ -17,9 +17,8 @@
       <th>Actions</th>
     </tr>
   </thead>
-
-<% @locations.each do |location| %>
   <tbody>
+  <% @locations.each do |location| %>
     <tr>
       <td><%= link_to location.name, location %></td>
       <td><%= location.geography %></td>
@@ -36,8 +35,8 @@
         <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
+  <% end %>
   </tbody>
-<% end %>
 </table>
 
 

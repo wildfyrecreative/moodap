@@ -8,5 +8,14 @@ Moodapp::Application.routes.draw do
   devise_for :users
   resources :users
   
+  resources :locations do
+    collection do
+      get 'bulk_edit'
+      post 'bulk_confirm'
+      post 'bulk_perform'
+    end
+  end
+  
   resources :locations
+  
 end

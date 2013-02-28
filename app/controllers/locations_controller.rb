@@ -192,5 +192,6 @@ class LocationsController < ApplicationController
   def ping
     @location = Location.find(params[:id])
     @location.update_attribute(:last_pinged, Time.now)
+    render :nothing => true,  :status => 200
   end
 end

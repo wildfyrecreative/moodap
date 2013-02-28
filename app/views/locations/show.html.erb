@@ -19,7 +19,11 @@
 
 <p>
   <b>Survey:</b>
-  <%= link_to @location.survey.name, @location.survey %>
+  <% if @location.survey %>
+    <%= link_to @location.survey.name, @location.survey %>
+  <% else %>
+    <span class="aui-lozenge aui-lozenge-error aui-lozenge-subtle">NO SURVEY</span>
+  <% end %>
 </p>
 
 <p>

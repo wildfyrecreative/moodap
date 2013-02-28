@@ -168,23 +168,23 @@ class LocationsController < ApplicationController
   def stats
     @location = Location.find(params[:id])
     @survey = @location.survey
-=begin
-    all_ratings = Rating.find_by_sql("select count(id) as rating_count, label from ratings where survey_id = #{@survey.id} group by label")
-    @ratings = {}
+
+    all_votes = Vote.find_by_sql("select count(id) as vote_count, label from votes where survey_id = #{@survey.id} group by label")
+    @votes = {}
     @max = 0
     @total = 0
-    all_ratings.each do |r|
-      @ratings[r.label] = r.rating_count.to_i
-      if r.rating_count.to_i > @max
-        @max = r.rating_count.to_i
+    all_votes.each do |r|
+      @votes[r.label] = r.vote_count.to_i
+      if r.vote_count.to_i > @max
+        @max = r.vote_count.to_i
       end
-      @total += r.rating_count.to_i
+      @total += r.vote_count.to_i
     end
     if request.xhr?
       render :partial => 'stats_ajax'
     else
    
     end
-=end    
+
   end
 end

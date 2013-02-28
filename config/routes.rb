@@ -22,6 +22,8 @@ Moodapp::Application.routes.draw do
   
   resources :locations
   
+  resources :votes
+  
   get "/ipad" => "ipad#index"
   get "/ipad/configure" => "ipad#configure"
   get "/ipad/new_session" => "ipad#new_session"

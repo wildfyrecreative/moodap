@@ -4,4 +4,5 @@ class Location < ActiveRecord::Base
   attr_accessible :active, :geography, :inactive_text, :name, :survey_id
   
   belongs_to :survey
+  has_many :votes
 end

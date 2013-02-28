@@ -6,7 +6,9 @@
 
 class IpadController < ApplicationController
   layout "ipad"
+  
   before_filter :authenticate_ipad, :except => [:index, :new_session, :sign_in]
+  
   def authenticate_ipad
     if !cookies[:ipad_admin] || cookies[:ipad_admin] != Moodapp::IPAD_TOKEN
       redirect_to '/ipad/new_session', :alert => "Gotta log in yo."
@@ -18,6 +20,7 @@ class IpadController < ApplicationController
     ipad_location_id = cookies[:ipad_location_id]
     if !ipad_location_id.empty?
       @location = Location.find(ipad_location_id)
+      @votes_count = Vote.find_by_sql("select count(id) as votes_count from votes where survey_id = #{@location.survey.id}")
       respond_to do |format|
         format.html {render :layout => false}
       end

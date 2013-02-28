@@ -40,22 +40,25 @@
   </div>
   <script type="text/javascript">
 
-  var upd_anwsers = true;
-  var display_stats = true;
-  var stats_threshold = 5;
-  var ratings_count = 0;
+  var upd_anwsers = true;                                 // Trigger to update answers
+  var display_stats = true;                               // True: will display stats after votes, false: won't do that
+  var stats_threshold = 5;                                // How many votes before we start displaying stats?
+  var refresh_stats_rate = 5000;                          // How often are the stats refreshed
+  var refresh_survey_rate = 5000;                         // How often is the whole survey refreshed
+  var display_stats_period = 5000;                        // How long do we display stats for
+  var votes_count = <%= @votes_count[0].votes_count %>;   // Cache of the number of votes when iPad is logged for first time.
   
   $(function(){
   	loadAnswers();
   	showAnswers();
   	updateStatsDiv();
-  	setInterval( "updateStatsDiv()", 10000 );
+  	setInterval( "updateStatsDiv()", refresh_stats_rate );
   	setInterval( function() {
   		if (upd_answers){
-  	    	loadAnswers();
+  	    loadAnswers();
   			showAnswers();
-  			}
-  	}, 60000 );
+  		}
+  	}, refresh_survey_rate);
   });
 
   function loadAnswers(){
@@ -65,7 +68,7 @@
   	    $('#ajax-div').html(data);
   	  },
   	  beforeSend: function(data) {
-  	    $('#ajax-div').html('<img src="/images/ajax.gif" alt="" />');
+  	    $('#ajax-div').html('<img src="/assets/ajax.gif" alt="" />');
   	  }
   	});
   }
@@ -94,44 +97,33 @@
   }
 
   function loadStats(){
-  	//$('#ajax-div').load('/locations/'+location_id+'/stats');
-  	console.log('starting...');
   	$.ajax({
   	  url: '/locations/stats',
   	  dataType: 'html',
   	  success: function(data) {
-  		console.log('success..');
-  		console.log('data');
-  	     eval(data);
-  		console.log("Data "+data);
-  	  }
+  		   eval(data);
+  		}
   	});
   }
 
-  function saveRating(label, survey_id){
-  	console.log('save ' + label);
+  function saveVote(label, survey_id){
   	$.ajax({
-  	  url: '/ratings',
-  	  data: 'rating[survey_id]=' + survey_id + '&rating[location_id]=<%=@location.id%>&rating[label]=' + label,
+  	  url: '/votes',
+  	  data: 'vote[survey_id]=' + survey_id + '&vote[location_id]=<%=@location.id%>&vote[label]=' + label,
   	  type:'POST',
   	  success: function(data) {
-  	  	ratings_count++;
-
-  	  },
-  	  beforeSend: function(data) {
-  	    console.log('saving rating');
-  		//$('#ajax-div').html('<img src="/images/ajax.gif" alt="" />');
+  	  	votes_count++;
   	  }
   	});
 
-  	if (display_stats && (ratings_count > stats_threshold)  ){
+  	if (display_stats && (votes_count > stats_threshold)  ){
   		hideAnswers();
   		showStats();
   		loadAnswers();
   		setTimeout(function() {
   	    hideStats();
-  		showAnswers();
-  	}, 5000);
+  		  showAnswers();
+  	}, display_stats_period);
   	}
   	else {
   		loadAnswers();
@@ -139,7 +131,6 @@
   	}
   	return false;
 
-  	return false;
   }
   </script>
 </div> <!-- #wrapper -->

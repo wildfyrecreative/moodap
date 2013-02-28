@@ -1,0 +1,26 @@
+<% content_for :page_title do %>
+  <h1>Votes</h1>
+<% end %>
+
+<table class="aui">
+  <thead>
+    <tr>
+      <th>Score</th>
+      <th>Location</th>
+      <th>Survey</th>
+      <th>Created at</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @votes.each do |vote| %>
+    <tr>
+      <td><%= vote.label %></td>
+      <td><%= vote.location.name %></td>
+      <td><%= vote.survey.name %></td>
+      <td><%=l vote.created_at, :format => :short %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+

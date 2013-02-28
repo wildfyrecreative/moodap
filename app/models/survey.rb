@@ -3,5 +3,6 @@ class Survey < ActiveRecord::Base
   
   attr_accessible :name, :visual, :question, :scale
   
-  has_many :location
+  has_many :locations
+  has_many :votes
 end

@@ -105,28 +105,49 @@ class LocationsController < ApplicationController
   def bulk_confirm
     @geography = params[:geography]
     @geo_text = @geography.empty? ? "all regions" : @geography
+    
     @survey = Survey.find(params[:survey_id])
+    
+    @active = params[:active].to_i
+    @active_text = @active == 1 ? "active" : "inactive"
+    
+    @update_survey = params[:update_survey]
+    @update_active = params[:update_active]
+    
   end
   
   def bulk_perform
     geography = params[:geography]
     geo_text = geography.empty? ? "all regions" : geography
     survey = Survey.find(params[:survey_id])
+    update_survey = params[:update_survey].empty? ? false : true
+    update_active = params[:update_active].empty? ? false : true
     success = false
-    if survey
+    
+    location_params = {}
+    if update_survey
+      location_params[:survey_id] = survey.id
+    end
+    
+    if update_active
+      location_params[:active] = params[:active]
+    end
+    
+      
+    if !location_params.empty? && survey
       if geography.empty?
-        Location.update_all(:survey_id => survey.id)
+        Location.update_all(location_params)
       else
-        Location.where(:geography => geography).update_all(:survey_id => survey.id)
+        Location.where(:geography => geography).update_all(location_params)
       end
       success = true
     end 
     respond_to do |format|
       if success
-        format.html { redirect_to locations_url, notice: "The locations from #{geo_text} have all been updated with the survey #{survey.name}" }
+        format.html { redirect_to locations_url, notice: "The locations from #{geo_text} have all been updated." }
         format.json { head :no_content }
       else
-        format.html { redirect_to locations_url, notice: "Sorry, something went wrong while bulk updating the locations" }
+        format.html { redirect_to locations_url, alert: "Sorry, something went wrong while bulk updating the locations" }
         format.json { render status: :unprocessable_entity }
       end
     end

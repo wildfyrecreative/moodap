@@ -18,9 +18,35 @@
       </select>
     </div>
 
+    <h3>Survey updates</h3>
+    <div class="group">
+      <legend><span>Update survey</span></legend>
+      <div class="checkbox">
+        <%= check_box_tag :update_survey, 1, false, :class => 'checkbox' %>
+        <%= label_tag 'Bulk change linked survey' %>
+        <div class="description">Check this field to update the linked survey of all selected locations</div>
+      </div>
+    </div>
     <div class="field-group">
       <%= label_tag :survey_id %>
       <%= select_tag :survey_id, options_from_collection_for_select(@surveys, "id", "name"), :class => 'select' %>
+    </div>
+    
+    <h3>Activation status updates</h3>
+    <div class="group">
+      <legend><span>Update activation status</span></legend>
+      <div class="checkbox">
+        <%= check_box_tag :update_active, 1, false, :class => 'checkbox' %>
+        <%= label_tag 'Bulk change activation tatus' %>
+        <div class="description">Check this field to update the activation status of all selected locations</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <%= label_tag :status %>
+      <select class="select" name="active">
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+      </select>
     </div>
   </fieldset>
   <div class="buttons-container">

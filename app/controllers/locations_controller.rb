@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:options, :stats]
   
   # GET /locations
   # GET /locations.json
@@ -151,5 +151,40 @@ class LocationsController < ApplicationController
         format.json { render status: :unprocessable_entity }
       end
     end
+  end
+  
+  
+  #### IPAD FUNCTIONS
+  def options
+    @location = Location.find(params[:id])
+    @survey = @location.survey
+    respond_to do |format|
+      format.html { render :partial => "options", :layout => false }
+    end
+  end
+  
+  # Get and display stats
+  
+  def stats
+    @location = Location.find(params[:id])
+    @survey = @location.survey
+=begin
+    all_ratings = Rating.find_by_sql("select count(id) as rating_count, label from ratings where survey_id = #{@survey.id} group by label")
+    @ratings = {}
+    @max = 0
+    @total = 0
+    all_ratings.each do |r|
+      @ratings[r.label] = r.rating_count.to_i
+      if r.rating_count.to_i > @max
+        @max = r.rating_count.to_i
+      end
+      @total += r.rating_count.to_i
+    end
+    if request.xhr?
+      render :partial => 'stats_ajax'
+    else
+   
+    end
+=end    
   end
 end

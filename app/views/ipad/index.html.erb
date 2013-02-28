@@ -1,1 +1,147 @@
-<%= link_to "Config", '/ipad/configure' %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MoodApp</title>
+
+  <%= stylesheet_link_tag 'style.public' %>
+  <%= javascript_include_tag 'jquery', 'jquery_ujs', 'public.app' %>
+
+  <!--  Mobile Viewport Fix
+  j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+  device-width : Occupy full width of the screen in its current orientation
+  initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+  maximum-scale = 1.0 retains dimensions instead of zooming in if page width < device width
+  -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+  <!-- full-screen on mobile safari - only after added to home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- translucent status bar - only after added to home screen -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+</head>
+<body>
+
+<div id="header">
+	<div id="location-place">
+		<%=link_to @location.name, '/ipad/configure' %>
+	</div>
+  <%=image_tag('title.png')%>
+</div>
+
+<div id="wrapper">
+	<div id="content">
+
+  	<div id="ajax-div" style="display:none">
+
+  	</div>
+  	<div id="stats-div" style="display:none">
+
+  	</div>
+  </div>
+  <script type="text/javascript">
+
+  var upd_anwsers = true;
+  var display_stats = true;
+  var stats_threshold = 5;
+  var ratings_count = 0;
+  
+  $(function(){
+  	loadAnswers();
+  	showAnswers();
+  	updateStatsDiv();
+  	setInterval( "updateStatsDiv()", 10000 );
+  	setInterval( function() {
+  		if (upd_answers){
+  	    	loadAnswers();
+  			showAnswers();
+  			}
+  	}, 60000 );
+  });
+
+  function loadAnswers(){
+  	$.ajax({
+  	  url: '/locations/<%=@location.id%>/options',
+  	  success: function(data) {
+  	    $('#ajax-div').html(data);
+  	  },
+  	  beforeSend: function(data) {
+  	    $('#ajax-div').html('<img src="/images/ajax.gif" alt="" />');
+  	  }
+  	});
+  }
+
+  function showAnswers(){
+  	$('#ajax-div').show();
+  	upd_answers = true;
+  }
+
+  function hideAnswers(){
+  	$('#ajax-div').hide();
+  }
+
+  function showStats(){
+  	$('#stats-div').show();
+  	upd_answers = false;
+  }
+  function hideStats(){
+  	$('#stats-div').hide();
+  }
+
+
+
+  function updateStatsDiv(){
+  	$('#stats-div').load('/locations/<%=@location.id%>/stats');
+  }
+
+  function loadStats(){
+  	//$('#ajax-div').load('/locations/'+location_id+'/stats');
+  	console.log('starting...');
+  	$.ajax({
+  	  url: '/locations/stats',
+  	  dataType: 'html',
+  	  success: function(data) {
+  		console.log('success..');
+  		console.log('data');
+  	     eval(data);
+  		console.log("Data "+data);
+  	  }
+  	});
+  }
+
+  function saveRating(label, survey_id){
+  	console.log('save ' + label);
+  	$.ajax({
+  	  url: '/ratings',
+  	  data: 'rating[survey_id]=' + survey_id + '&rating[location_id]=<%=@location.id%>&rating[label]=' + label,
+  	  type:'POST',
+  	  success: function(data) {
+  	  	ratings_count++;
+
+  	  },
+  	  beforeSend: function(data) {
+  	    console.log('saving rating');
+  		//$('#ajax-div').html('<img src="/images/ajax.gif" alt="" />');
+  	  }
+  	});
+
+  	if (display_stats && (ratings_count > stats_threshold)  ){
+  		hideAnswers();
+  		showStats();
+  		loadAnswers();
+  		setTimeout(function() {
+  	    hideStats();
+  		showAnswers();
+  	}, 5000);
+  	}
+  	else {
+  		loadAnswers();
+  		showAnswers();
+  	}
+  	return false;
+
+  	return false;
+  }
+  </script>
+</div> <!-- #wrapper -->
+</body>
+</html>

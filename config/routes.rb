@@ -14,6 +14,10 @@ Moodapp::Application.routes.draw do
       post 'bulk_confirm'
       post 'bulk_perform'
     end
+    member do
+      get 'options'
+      get 'stats'
+    end
   end
   
   resources :locations

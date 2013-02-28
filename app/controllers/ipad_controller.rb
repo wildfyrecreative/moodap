@@ -15,10 +15,24 @@ class IpadController < ApplicationController
   
   # This URL will be used to access the public iPad display
   def index
-    respond_to do |format|
-      format.html # index.html.erb
+    ipad_location_id = cookies[:ipad_location_id]
+    if !ipad_location_id.empty?
+      @location = Location.find(ipad_location_id)
+      respond_to do |format|
+        format.html {render :layout => false}
+      end
+    else
+      redirect_to '/ipad/configure', :alert => 'You must setup a location for this iPad first'
     end
-  end:wq
+  end
+  
+  def options
+    @location = Location.find(params[:id])
+    @survey = @location.survey
+    respond_to do |format|
+      format.html { render :partial => "options", :layout => false }
+    end
+  end
   
   
   # Go to /ipad/configure to be able to set up the location of the iPad

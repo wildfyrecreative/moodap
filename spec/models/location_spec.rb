@@ -7,7 +7,8 @@ describe Location do
       :name => "Example Location",
       :geography => "Example Geography",
       :active => true,
-      :inactive_text => "Some text about inactivity"
+      :inactive_text => "Some text about inactivity",
+      :survey_id => 1
     }
   end
   

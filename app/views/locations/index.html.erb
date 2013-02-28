@@ -26,6 +26,7 @@
     <tr>
       <th>Name</th>
       <th>Geography</th>
+      <th>Survey</th>
       <th>Active</th>
       <th>Actions</th>
     </tr>
@@ -35,6 +36,13 @@
     <tr>
       <td><%= link_to location.name, location %></td>
       <td><%= location.geography %></td>
+      <td>
+        <% if location.survey %>
+          <%= location.survey.name %>
+        <% else %>
+          <span class="aui-lozenge aui-lozenge-error aui-lozenge-subtle">NO SURVEY</span>
+        <% end %>
+      </td>
       <td>
         <% if location.active %>
           <span class="aui-icon aui-icon-success">Active</span>

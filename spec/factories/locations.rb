@@ -6,5 +6,6 @@ FactoryGirl.define do
     geography "MyString"
     active false
     inactive_text "MyText"
+    survey_id 1
   end
 end

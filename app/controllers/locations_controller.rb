@@ -6,9 +6,9 @@ class LocationsController < ApplicationController
   def index
     @filter_geography = params[:filter_geography] || nil
     if @filter_geography
-      @locations = Location.where(:geography => @filter_geography)
+      @locations = Location.includes(:survey).where(:geography => @filter_geography)
     else
-      @locations = Location.all
+      @locations = Location.includes(:survey).all
     end
     @geographies = Location.select(:geography).uniq.order('geography asc').map(&:geography)
     @geographies
@@ -33,7 +33,7 @@ class LocationsController < ApplicationController
   # GET /locations/new.json
   def new
     @location = Location.new
-    @cancel_link = locations_path
+    @surveys = Survey.order(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +44,7 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
-    @cancel_link = location_path(@location)
+    @surveys = Survey.order(:name)
   end
 
   # POST /locations

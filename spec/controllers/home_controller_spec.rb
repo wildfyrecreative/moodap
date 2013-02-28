@@ -21,6 +21,12 @@ describe HomeController do
       get 'dashboard'
       response.should be_success
     end
+    
+    it "should render the page" do
+      sign_in_helper
+      get 'dashboard'
+      response.should render_template('dashboard')
+    end
   end
 
 end

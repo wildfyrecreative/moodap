@@ -1,8 +1,7 @@
 Moodapp::Application.routes.draw do
   resources :surveys
 
-
-  root :to => 'home#dashboard'
+  root :to => 'locations#index'
   #match 'dashboard' => 'home#dashboard'
   
   devise_for :users

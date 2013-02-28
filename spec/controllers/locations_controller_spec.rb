@@ -15,6 +15,13 @@ describe LocationsController do
   end
 
   describe "GET index" do
+    
+    it "should redirect to sign in" do
+      sign_out @user
+      get :index
+      response.should redirect_to(new_user_session_path)
+    end
+    
     it "assigns all locations as @locations" do
       location = Location.create! valid_attributes
       get :index
@@ -27,6 +34,13 @@ describe LocationsController do
       location = Location.create! valid_attributes
       get :show, {:id => location.to_param}
       assigns(:location).should eq(location)
+    end
+    
+    it "should redirect to sign in" do
+      sign_out @user
+      location = Location.create! valid_attributes
+      get :show, {:id => location.to_param}
+      response.should redirect_to(new_user_session_path)
     end
   end
 

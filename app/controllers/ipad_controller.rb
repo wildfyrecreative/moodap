@@ -29,14 +29,6 @@ class IpadController < ApplicationController
     end
   end
   
-  def options
-    @location = Location.find(params[:id])
-    @survey = @location.survey
-    respond_to do |format|
-      format.html { render :partial => "options", :layout => false }
-    end
-  end
-  
   
   # Go to /ipad/configure to be able to set up the location of the iPad
   def configure

@@ -43,16 +43,18 @@
   var upd_anwsers = true;                                 // Trigger to update answers
   var display_stats = true;                               // True: will display stats after votes, false: won't do that
   var stats_threshold = 5;                                // How many votes before we start displaying stats?
-  var refresh_stats_rate = 5000;                          // How often are the stats refreshed
-  var refresh_survey_rate = 5000;                         // How often is the whole survey refreshed
+  var refresh_stats_rate = 10000;                         // How often are the stats refreshed
+  var refresh_survey_rate = 60000;                        // How often is the whole survey refreshed
   var display_stats_period = 5000;                        // How long do we display stats for
   var votes_count = <%= @votes_count[0].votes_count %>;   // Cache of the number of votes when iPad is logged for first time.
-  
+  var ping_rate = 4000;                                   // How often we ping 'Home' to detect locations that are not displayed
+      
   $(function(){
   	loadAnswers();
   	showAnswers();
   	updateStatsDiv();
   	setInterval( "updateStatsDiv()", refresh_stats_rate );
+  	setInterval( "pingHome()", ping_rate );
   	setInterval( function() {
   		if (upd_answers){
   	    loadAnswers();
@@ -60,6 +62,11 @@
   		}
   	}, refresh_survey_rate);
   });
+  
+  // This function updates the location last_ping date
+  function pingHome(){
+    $.get('/locations/<%=@location.id%>/ping');
+  }
 
   function loadAnswers(){
   	$.ajax({

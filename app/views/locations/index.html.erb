@@ -31,6 +31,7 @@
       <th>Geography</th>
       <th>Survey</th>
       <th>Active</th>
+      <th>Last pinged</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -52,6 +53,15 @@
         <% else %>
           <span class="aui-icon aui-icon-error">Inactive</span>
         <% end %>
+      </td>
+      <td>
+        <% if location.last_pinged && location.last_pinged > (Time.now - 5.minutes) %>
+          <span class="aui-lozenge aui-lozenge-subtle aui-lozenge-success">
+        <% else %>
+          <span class="aui-lozenge aui-lozenge-subtle aui-lozenge-error">
+        <% end %>
+        <%= location.last_pinged ? l(location.last_pinged, :format => :short) : 'Never pinged' %>
+        </span>
       </td>
       <td>
         <%= link_to 'Edit', edit_location_path(location) %>

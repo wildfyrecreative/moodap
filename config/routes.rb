@@ -17,6 +17,7 @@ Moodapp::Application.routes.draw do
     member do
       get 'options'
       get 'stats'
+      get 'ping'
     end
   end
   

@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:options, :stats]
+  before_filter :authenticate_user!, :except => [:options, :stats, :ping]
   
   # GET /locations
   # GET /locations.json
@@ -186,5 +186,11 @@ class LocationsController < ApplicationController
    
     end
 
+  end
+  
+  # used to check if location is alive or not
+  def ping
+    @location = Location.find(params[:id])
+    @location.update_attribute(:last_pinged, Time.now)
   end
 end

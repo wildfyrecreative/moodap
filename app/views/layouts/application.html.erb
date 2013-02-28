@@ -18,6 +18,15 @@
     <section id="content" role="main">
       <header class="aui-page-header">
         <div class="aui-page-header-inner">
+          <% if content_for?(:page_header_image)%>
+          <div class="aui-page-header-image">
+            <div class="aui-avatar aui-avatar-xlarge aui-avatar-project">
+              <div class="aui-avatar-inner">
+                <%= yield :page_header_image %>
+              </div>
+            </div>
+          </div>
+          <% end %>
           <div class="aui-page-header-main">
             <%= yield :page_title %>
           </div>

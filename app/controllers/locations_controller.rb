@@ -191,7 +191,9 @@ class LocationsController < ApplicationController
   # used to check if location is alive or not
   def ping
     @location = Location.find(params[:id])
-    @location.update_attribute(:last_pinged, Time.now)
+    
+    @location.update_attribute(:last_pinged, Time.now.utc)
+    
     render :nothing => true,  :status => 200
   end
 end

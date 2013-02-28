@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MoodApp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="ui-layout aui-theme-default aui-page-focused aui-page-focused-medium">  
+  <div id="page">
+    
+    <header id="header" role="banner">
+      <nav class="aui-header aui-dropdown2-trigger-group" role="navigation">
+        <div class="aui-header-primary">
+          <h1 id="logo" class="aui-header-logo aui-header-logo-aui"><a href="/"><span class="aui-header-logo-device">Atlassian Moodapp</span></a></h1>
+          <% if cookies[:ipad_admin] %>
+          <ul class="aui-nav">
+            <li><%= link_to('Logout', '/ipad/logout', :method => :delete) %></li>
+          </ul>
+          <% end %>
+        </div>
+      </nav>
+    </header> <!-- #header -->
+    
+    <section id="content" role="main">
+      <div class="aui-page-panel">
+        <div class="aui-page-panel-inner">
+          <section class="aui-page-panel-content">
+            
+            <%= yield %>
+    
+          </section> <!-- .aui-page-panel-content -->
+        </div> <!-- .aui-page-panel-inner -->
+      </div> <!-- .aui-page-panel -->
+    </section> <!-- #content -->
+        
+  </div> <!-- #page -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h2>Configure this iPad</h2>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<%= form_tag('/ipad/save_configuration', :class => 'aui') do |f| %>  
+  <fieldset>
+    <div class="field-group">
+      <%= label_tag :location_id, 'Location' %>
+      <%= select_tag :ipad_location_id, options_from_collection_for_select(@locations, "id", "name", cookies[:ipad_location_id]), :prompt => 'Pick a location', :class => 'select' %>
+    </div>
+  </fieldset>
+  <div class="buttons-container">
+    <div class="buttons">
+      <%= submit_tag "Save", :class => 'aui-button aui-button-primary' %>
+      <%= link_to "Cancel", '/ipad', :class => 'aui-button aui-button-link' %>
+    </div>
+  </div>
+  <div></div>
+<% end %>

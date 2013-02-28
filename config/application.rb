@@ -10,6 +10,10 @@ if defined?(Bundler)
 end
 
 module Moodapp
+  
+  # ipad pasword - temp hack to take out
+  IPAD_TOKEN = "123456"
+  
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

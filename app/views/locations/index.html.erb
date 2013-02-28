@@ -1,29 +1,43 @@
-<h1>Listing locations</h1>
+<% content_for :page_title do %>
+  <h1>Locations</h1>
+<% end %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Geography</th>
-    <th>Active</th>
-    <th>Inactive text</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<% content_for :page_actions do %>
+<%= link_to 'New Location', new_location_path, :class => 'aui-button' %>
+<% end %>
+
+<table class="aui">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Geography</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
 <% @locations.each do |location| %>
-  <tr>
-    <td><%= location.name %></td>
-    <td><%= location.geography %></td>
-    <td><%= location.active %></td>
-    <td><%= location.inactive_text %></td>
-    <td><%= link_to 'Show', location %></td>
-    <td><%= link_to 'Edit', edit_location_path(location) %></td>
-    <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td><%= link_to location.name, location %></td>
+      <td><%= location.geography %></td>
+      <td>
+        <% if location.active %>
+          <span class="aui-icon aui-icon-success">Active</span>
+        <% else %>
+          <span class="aui-icon aui-icon-error">Inactive</span>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to 'Edit', edit_location_path(location) %>
+        |
+        <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  </tbody>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Location', new_location_path %>
+

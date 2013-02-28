@@ -20,7 +20,7 @@ describe Location do
     no_name_location.should_not be_valid
   end
   
-  it "should require a name " do
+  it "should require a geography " do
     no_geography_location = Location.new(@attr.merge(:geography => ""))
     no_geography_location.should_not be_valid
   end

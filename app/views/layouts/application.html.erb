@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Moodapp</title>
+  <title>MoodApp</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
-  <ul>
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
-    </li>
-  <% else %>
-    <li>
-    <%= link_to('Login', new_user_session_path)  %>  
-    </li>
-  <% end %>
-  </ul>
-<%= yield %>
-
+<body class="ui-layout aui-theme-default">
+  <div id="page">
+    
+    <%= render :partial => 'layouts/header'%>
+    
+    <section id="content" role="main">
+      <header class="aui-page-header">
+        <div class="aui-page-header-inner">
+          <div class="aui-page-header-main">
+            <%= yield :page_title %>
+          </div>
+          <% if content_for?(:page_actions)%>
+          <div class="aui-page-header-actions">
+            <%= yield :page_actions %>
+          </div>
+          <% end %>
+        </div>
+      </header> <!-- .aui-page-header -->
+      <div class="aui-page-panel">
+        <div class="aui-page-panel-inner">
+          <section class="aui-page-panel-content">
+    
+            <% if notice %>
+              <div class="aui-message success">
+                <p><%= notice %></p>
+              </div>
+            <% end %>
+    
+            <% if alert %>
+              <div class="aui-message warning">
+                <p><%= alert %></p>
+              </div>
+            <% end %>
+    
+            <%= yield %>
+    
+          </section> <!-- .aui-page-panel-content -->
+        </div> <!-- .aui-page-panel-inner -->
+      </div> <!-- .aui-page-panel -->
+    </section> <!-- #content -->
+        
+  </div> <!-- #page -->
 </body>
 </html>

@@ -1,0 +1,32 @@
+<header id="header" role="banner">
+  <nav class="aui-header aui-dropdown2-trigger-group" role="navigation">
+    <div class="aui-header-primary">
+      <h1 id="logo" class="aui-header-logo aui-header-logo-aui"><a href="/"><span class="aui-header-logo-device">Atlassian Moodapp</span></a></h1>
+      <% if user_signed_in? %>
+      <ul class="aui-nav">
+        <li><%=link_to "Dashboard", dashboard_path  %></li>
+        <li><%=link_to "Locations", locations_path  %></li>
+        <li><%=link_to "Users", users_path  %></li>
+      </ul>
+      <% end %>
+    </div>
+    <% if user_signed_in? %>
+    <div class="aui-header-secondary">
+      <ul class="aui-nav">
+        <li>
+          <a href="#profileDropDown" aria-owns="profile-dropdown" aria-haspopup="true" class="aui-dropdown2-trigger" aria-controls="profile-dropdown">
+            <%=current_user.email%>
+          </a>
+          <div class="aui-dropdown2 aui-style-default aui-dropdown2-in-header" id="profile-dropdown" aria-hidden="true">
+            <div class="aui-dropdown2-section">
+              <ul>
+                <li><%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => 'active') %></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+  </nav>
+</header> <!-- #header -->

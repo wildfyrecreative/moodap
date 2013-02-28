@@ -1,6 +1,7 @@
 Moodapp::Application.routes.draw do
   devise_for :users
 
+  match 'dashboard' => 'home#dashboard'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

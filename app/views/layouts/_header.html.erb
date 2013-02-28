@@ -4,7 +4,7 @@
       <h1 id="logo" class="aui-header-logo aui-header-logo-aui"><a href="/"><span class="aui-header-logo-device">Atlassian Moodapp</span></a></h1>
       <% if user_signed_in? %>
       <ul class="aui-nav">
-        <li><%=link_to "Dashboard", dashboard_path  %></li>
+        <li><%=link_to "Dashboard", root_path  %></li>
         <li><%=link_to "Locations", locations_path  %></li>
         <li><%=link_to "Users", users_path  %></li>
       </ul>
@@ -20,6 +20,7 @@
           <div class="aui-dropdown2 aui-style-default aui-dropdown2-in-header" id="profile-dropdown" aria-hidden="true">
             <div class="aui-dropdown2-section">
               <ul>
+                <li><%= link_to('Settings', edit_registration_path(current_user), :class => 'active') %></li>
                 <li><%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => 'active') %></li>
               </ul>
             </div>

@@ -11,7 +11,6 @@ class LocationsController < ApplicationController
       @locations = Location.includes(:survey).all
     end
     @geographies = Location.select(:geography).uniq.order('geography asc').map(&:geography)
-    @geographies
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @locations }
@@ -88,6 +87,48 @@ class LocationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to locations_url }
       format.json { head :no_content }
+    end
+  end
+  
+  # Bulk edit page
+  def bulk_edit
+    @geographies = Location.select(:geography).uniq.order('geography asc').map(&:geography)
+    @surveys = Survey.order(:name)
+    
+    respond_to do |format|
+      format.html
+      format.json { head :no_content }
+    end
+  end
+  
+  # Bulk Confirm
+  def bulk_confirm
+    @geography = params[:geography]
+    @geo_text = @geography.empty? ? "all regions" : @geography
+    @survey = Survey.find(params[:survey_id])
+  end
+  
+  def bulk_perform
+    geography = params[:geography]
+    geo_text = geography.empty? ? "all regions" : geography
+    survey = Survey.find(params[:survey_id])
+    success = false
+    if survey
+      if geography.empty?
+        Location.update_all(:survey_id => survey.id)
+      else
+        Location.where(:geography => geography).update_all(:survey_id => survey.id)
+      end
+      success = true
+    end 
+    respond_to do |format|
+      if success
+        format.html { redirect_to locations_url, notice: "The locations from #{geo_text} have all been updated with the survey #{survey.name}" }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to locations_url, notice: "Sorry, something went wrong while bulk updating the locations" }
+        format.json { render status: :unprocessable_entity }
+      end
     end
   end
 end

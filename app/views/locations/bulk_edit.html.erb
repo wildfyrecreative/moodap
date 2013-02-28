@@ -1,0 +1,32 @@
+<% content_for :aui_layout do %>
+  <body class="ui-layout aui-theme-default aui-page-focused aui-page-focused-medium">  
+<% end %>
+
+<h2>Bulk edit locations</h2>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<%= form_tag(bulk_confirm_locations_path, :class => 'aui') do |f| %>
+  <fieldset>
+    <div class="field-group">
+      <%= label_tag :geography, 'Region' %>
+      <select class="select" name="geography">
+        <option value="">All</option>
+        <% @geographies.each do |g| %>
+        <option value="<%= g %>"><%= g %></option>
+        <%end %>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <%= label_tag :survey_id %>
+      <%= select_tag :survey_id, options_from_collection_for_select(@surveys, "id", "name"), :class => 'select' %>
+    </div>
+  </fieldset>
+  <div class="buttons-container">
+    <div class="buttons">
+      <%= submit_tag "Bulk edit", :class => 'aui-button aui-button-primary' %>
+      <%= link_to "Cancel", locations_path, :class => 'aui-button aui-button-link' %>
+    </div>
+  </div>
+<% end %>

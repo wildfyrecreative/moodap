@@ -1,4 +1,5 @@
-<%= form_for(@location) do |f| %>
+<%= form_for(@location, :html => {:class => 'aui'}) do |f| %>
+  <fieldset>
   <% if @location.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
@@ -11,23 +12,31 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :geography %><br />
-    <%= f.text_field :geography %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :inactive_text %><br />
-    <%= f.text_area :inactive_text %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, :class => 'text' %>
+    </div>
+    <div class="field-group">
+      <%= f.label :geography %>
+      <%= f.text_field :geography, :class => 'text' %>
+    </div>
+    
+    <div class="group">
+      <legend><span>Location status</span></legend>
+      <div class="checkbox">
+        <%= f.check_box :active, :class => 'checkbox' %>
+        <%= f.label :active %>
+      </div>
+    </div>
+    
+    <div class="field-group">
+      <%= f.label :inactive_text %>
+      <%= f.text_area :inactive_text, :class => 'textarea long-field', :cols => 10, :rows => 8 %>
+    </div>
+    <div class="buttons-container">
+      <div class="buttons">
+        <%= f.submit "Save", :class => 'button submit' %><%= link_to 'Cancel', @cancel_link, :class => 'cancel' %>
+      </div>
+    </div>
+  </fieldset>
 <% end %>

@@ -27,6 +27,7 @@ class LocationsController < ApplicationController
   # GET /locations/new.json
   def new
     @location = Location.new
+    @cancel_link = locations_path
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +38,7 @@ class LocationsController < ApplicationController
   # GET /locations/1/edit
   def edit
     @location = Location.find(params[:id])
+    @cancel_link = location_path(@location)
   end
 
   # POST /locations

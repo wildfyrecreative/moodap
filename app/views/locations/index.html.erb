@@ -9,7 +9,6 @@
 <table class="aui">
   <thead>
     <tr>
-      <th>Name</th>
       <th>Geography</th>
       <th>Active</th>
       <th>Actions</th>
@@ -19,7 +18,6 @@
 <% @locations.each do |location| %>
   <tbody>
     <tr>
-      <td><%= link_to location.name, location %></td>
       <td><%= location.geography %></td>
       <td>
         <% if location.active %>
@@ -37,7 +35,5 @@
   </tbody>
 <% end %>
 </table>
-
-<br />
 
 

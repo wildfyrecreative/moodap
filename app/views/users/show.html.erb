@@ -1,2 +1,8 @@
-<h3>User</h3>
-<p>Email: <%= @user.email %></p>
+<% content_for :page_title do %>
+  <h1><%=@user.email %></h1>
+<% end %>
+
+<p>
+  <b>Created at:</b>
+  <%=l @user.created_at.to_date, :format => :long%>
+</p>

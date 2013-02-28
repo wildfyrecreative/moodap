@@ -4,8 +4,14 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
-
+    @filter_geography = params[:filter_geography] || nil
+    if @filter_geography
+      @locations = Location.where(:geography => @filter_geography)
+    else
+      @locations = Location.all
+    end
+    @geographies = Location.select(:geography).uniq.order('geography asc').map(&:geography)
+    @geographies
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @locations }

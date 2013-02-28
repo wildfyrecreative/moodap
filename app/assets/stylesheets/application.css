@@ -11,3 +11,5 @@
  *= require_self
  *= require aui/aui-all
  */
+
+.fieldLabel{color: #666}

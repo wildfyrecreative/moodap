@@ -8,6 +8,19 @@
 
 <%= render :partial => 'layouts/notifications'%>
 
+<a href="#geography_filter" aria-owns="geography_filter" aria-haspopup="true" class="aui-button aui-dropdown2-trigger aui-style-default">
+  <span class="fieldLabel">Geography:</span> <%=@filter_geography || "All" %>
+</a>
+<!-- Simple Dropdown - dropdown -->
+<div id="geography_filter" class="aui-dropdown2 aui-style-default">
+  <ul class="aui-list-truncate">
+    <li><%=link_to "All", locations_path %></a></li>
+  <% @geographies.each do |g| %>
+    <li><%=link_to g, locations_path(:filter_geography => g)%></a></li>
+  <% end %>
+  </ul>
+</div><!-- .aui-dropdown2 -->
+
 <table class="aui">
   <thead>
     <tr>

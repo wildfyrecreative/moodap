@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :survey do
     name "MyString"
     question "MyString"
-    scale ""
+    scale 5
     visual "MyString"
   end
 end

@@ -70,7 +70,7 @@
       </td>
       <td>
         <% if location.inactive_text %>
-        <img src="<%=location.inactive_text%>" class="img_small" alt="" />
+        <%=truncate(location.inactive_text, :length => 50)%>
         <% end %>
       </td>
       <td>

@@ -15,7 +15,7 @@
 <% else %>
   <% if @location.inactive_text  && !@location.inactive_text.empty?  %>
   <div id="idle-image">
-    <img src="<%=@location.inactive_text%>" alt="" />
+    <%=raw @location.inactive_text%>
   </div>
   <% else %>
   <div id="idle">

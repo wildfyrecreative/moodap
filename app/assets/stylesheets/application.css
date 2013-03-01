@@ -13,3 +13,19 @@
  */
 
 .fieldLabel{color: #666}
+.aui-header .logo-moodapp .aui-header-logo-device {
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 100%;
+    display: block;
+    float: left;
+    height: 24px;
+    padding: 8px 0;
+    text-indent: -9999px;
+    text-align: left;
+}
+
+.aui-header .logo-moodapp .aui-header-logo-device {
+    background-image: url('/assets/logo-moodapp.png');
+    width: 104px;
+}

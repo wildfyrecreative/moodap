@@ -48,6 +48,22 @@
         <option value="0">Inactive</option>
       </select>
     </div>
+    
+    <h3>Inactive image URL</h3>
+    <div class="group">
+      <legend><span>Update inactive image</span></legend>
+      <div class="checkbox">
+        <%= check_box_tag :update_inactive_text, 1, false, :class => 'checkbox' %>
+        <%= label_tag 'Bulk change inactive image URL' %>
+        <div class="description">Check this field to update the inactive image URL of all selected locations</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <%= label_tag :inactive_text, 'Image URL' %>
+      <%= text_field_tag :inactive_text, '', :class => 'text long-field'%>
+    </div>
+    
+    
   </fieldset>
   <div class="buttons-container">
     <div class="buttons">

@@ -36,6 +36,7 @@
       <th>Survey</th>
       <th>Active</th>
       <th>Last pinged</th>
+      <th>Inactive image</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -66,6 +67,11 @@
         <% end %>
         <%= location.last_pinged ? l(location.last_pinged, :format => :short) : 'Never pinged' %>
         </span>
+      </td>
+      <td>
+        <% if location.inactive_text %>
+        <img src="<%=location.inactive_text%>" class="img_small" alt="" />
+        <% end %>
       </td>
       <td>
         <%= link_to 'Edit', edit_location_path(location) %>

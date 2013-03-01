@@ -29,3 +29,8 @@
     background-image: url('/assets/logo-moodapp.png');
     width: 104px;
 }
+
+.img_small{
+	max-width: 48px;
+	max-height:48px;
+}

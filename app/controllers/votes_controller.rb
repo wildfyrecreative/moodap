@@ -23,7 +23,6 @@ class VotesController < ApplicationController
             csv << [vote.label, vote.location.name, vote.survey.name, vote.created_at]
           end
         end
-        puts csv_string
         render :inline => csv_string, :filename => "#{Time.now.year}#{Time.now.month}#{Time.now.day}_votes.csv"
       end
     end

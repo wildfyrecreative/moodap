@@ -10,8 +10,10 @@
   <%= hidden_field_tag :geography, @geography %>
   <%= hidden_field_tag :survey_id, @survey.id %>
   <%= hidden_field_tag :active, @active %>
+  <%= hidden_field_tag :inactive_text, @inactive_text %>
   <%= hidden_field_tag :update_survey, @update_survey %>
   <%= hidden_field_tag :update_active, @update_active %>
+  <%= hidden_field_tag :update_inactive_text, @update_inactive_text %>
   <p>
     Are you sure that you want to perform the following changes for surveys from <%=@geo_text%>:
   </p>
@@ -21,6 +23,9 @@
     <% end%>
     <% if @update_active %>
     <li>Change activation status to <strong><%= @active_text %></strong></li>
+    <% end%>
+    <% if @update_inactive_text %>
+    <li>Change inactive image URL to <strong><%= @inactive_text %></strong></li>
     <% end%>
   </ul>
   <div class="buttons-container">

@@ -104,6 +104,7 @@ class LocationsController < ApplicationController
   # Bulk Confirm
   def bulk_confirm
     @geography = params[:geography]
+    @inactive_text = params[:inactive_text]
     @geo_text = @geography.empty? ? "all regions" : @geography
     
     @survey = Survey.find(params[:survey_id])
@@ -113,15 +114,18 @@ class LocationsController < ApplicationController
     
     @update_survey = params[:update_survey]
     @update_active = params[:update_active]
+    @update_inactive_text = params[:update_inactive_text]
     
   end
   
   def bulk_perform
     geography = params[:geography]
+    inactive_text = params[:inactive_text]
     geo_text = geography.empty? ? "all regions" : geography
     survey = Survey.find(params[:survey_id])
     update_survey = params[:update_survey].empty? ? false : true
     update_active = params[:update_active].empty? ? false : true
+    update_inactive_text = params[:update_inactive_text].empty? ? false : true
     success = false
     
     location_params = {}
@@ -131,6 +135,10 @@ class LocationsController < ApplicationController
     
     if update_active
       location_params[:active] = params[:active]
+    end
+    
+    if update_inactive_text
+      location_params[:inactive_text] = params[:inactive_text]
     end
     
       

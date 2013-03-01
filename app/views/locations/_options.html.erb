@@ -1,25 +1,32 @@
 <% if @location.active %>
-<h1><%=@survey.question%></h1>
-<div id="answers-div">
-	<% if @survey.scale == 2 %>
-		<%=link_to image_tag('0-' + @survey.visual + '.png'), '#', :onclick => "return saveVote('0', #{@survey.id})"%>
-		<%=link_to image_tag('4-' + @survey.visual + '.png'), '#', :onclick => "return saveVote('4', #{@survey.id})"%>
-	<% elsif @survey.scale == 5 %>
-	 	<% 0.upto(4) do |i| %>
-			<%=link_to image_tag(i.to_s + '-' + @survey.visual + '.png'), '#', :onclick => "return saveVote('#{i}', #{@survey.id})"%>
-		<% end %>
-	<% else %>
-		Sorry, an error occurred
-	<% end %>
-</div>
+  <h1><%=@survey.question%></h1>
+  <div id="answers-div">
+  	<% if @survey.scale == 2 %>
+  		<%=link_to image_tag('0-' + @survey.visual + '.png'), '#', :onclick => "return saveVote('0', #{@survey.id})"%>
+  		<%=link_to image_tag('4-' + @survey.visual + '.png'), '#', :onclick => "return saveVote('4', #{@survey.id})"%>
+  	<% elsif @survey.scale == 5 %>
+  	 	<% 0.upto(4) do |i| %>
+  			<%=link_to image_tag(i.to_s + '-' + @survey.visual + '.png'), '#', :onclick => "return saveVote('#{i}', #{@survey.id})"%>
+  		<% end %>
+  	<% else %>
+  		Sorry, an error occurred
+  	<% end %>
+  </div>
 <% else %>
-<div id="idle">
-  <%=image_tag 'atlassian.png'%>
   <% if @location.inactive_text  && !@location.inactive_text.empty?  %>
-  <div id="quote">
-    <p><%=@location.inactive_text%></p>
-    <%=image_tag 'phrase-bg.png' %>
+  <div id="idle-image">
+    <img src="<%=@location.inactive_text%>" alt="" />
+  </div>
+  <% else %>
+  <div id="idle">
+    <%=image_tag 'atlassian.png'%>
+  
+    <% if false %>
+    <div id="quote">
+      <p><%=@location.inactive_text%></p>
+      <%=image_tag 'phrase-bg.png' %>
+    </div>
+    <% end %>
   </div>
   <% end %>
-</div>
 <% end %>

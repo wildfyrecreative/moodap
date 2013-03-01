@@ -18,7 +18,7 @@ class IpadController < ApplicationController
   # This URL will be used to access the public iPad display
   def index
     ipad_location_id = cookies[:ipad_location_id]
-    if !ipad_location_id.empty?
+    if ipad_location_id && !ipad_location_id.empty?
       @location = Location.find(ipad_location_id)
       @votes_count = Vote.find_by_sql("select count(id) as votes_count from votes where survey_id = #{@location.survey.id}")
       respond_to do |format|

@@ -2,7 +2,7 @@
   <body class="ui-layout aui-theme-default aui-page-focused aui-page-focused-medium">  
 <% end %>
 
-<h2>Sign in</h2>
+<h2>Log in</h2>
 
 <%= render :partial => 'layouts/notifications'%>
 
@@ -29,7 +29,7 @@
   </fieldset>
   <div class="buttons-container">
     <div class="buttons">
-      <%= f.submit "Sign in", :class => 'aui-button aui-button-primary' %>
+      <%= f.submit "Log in", :class => 'aui-button aui-button-primary' %>
       
       <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
         <%= link_to "Sign up", new_registration_path(resource_name), :class => 'aui-button' %>

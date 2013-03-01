@@ -9,16 +9,16 @@ describe HomeController do
   
   
   # Testing access to the Dashboard
-  describe "Get 'dashboard'" do
+  describe "Get 'root'" do
     it "should redirect to sign in page" do
-      get 'dashboard'
+      get 'locations'
       response.should redirect_to(new_user_session_path)
     end
     
     it "should be successful" do
       sign_in_helper
       
-      get 'dashboard'
+      get 'location'
       response.should be_success
     end
   end

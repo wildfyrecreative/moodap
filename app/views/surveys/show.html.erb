@@ -11,8 +11,11 @@
 
 
 <% content_for :page_actions do %>
-<%= link_to 'Edit', edit_survey_path(@survey), :class => 'aui-button' %>
-<%= link_to 'Destroy', @survey, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'aui-button aui-button-link' %>
+<div class="aui-buttons">
+  <%= link_to 'Edit', edit_survey_path(@survey), :class => 'aui-button' %>
+  <%= link_to 'View votes', votes_path(:survey_id => @survey.id), :class => 'aui-button' %>
+  <%= link_to 'Destroy', @survey, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'aui-button aui-button-link' %>
+</div>
 <% end %>
 
 <%= render :partial => 'layouts/notifications'%>

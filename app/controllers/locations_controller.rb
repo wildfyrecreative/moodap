@@ -6,9 +6,9 @@ class LocationsController < ApplicationController
   def index
     @filter_geography = params[:filter_geography] || nil
     if @filter_geography
-      @locations = Location.includes(:survey).where(:geography => @filter_geography)
+      @locations = Location.includes(:survey).where(:geography => @filter_geography).order('name asc')
     else
-      @locations = Location.includes(:survey).all
+      @locations = Location.includes(:survey).order('name asc').all
     end
     @geographies = Location.select(:geography).uniq.order('geography asc').map(&:geography)
     respond_to do |format|

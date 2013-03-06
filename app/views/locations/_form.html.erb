@@ -45,8 +45,8 @@
     
     <div class="field-group">
       <%= f.label :inactive_text, 'Image URL' %>
-      <%= f.text_field :inactive_text, :class => 'text long-field'%>
-      <div class="description">Max 900px width and 550px height.</div>
+      <%= f.text_area :inactive_text, :class => 'textarea long-field', :rows => 8 %>
+      <div class="description">Dimension should be 900x500px.</div>
     </div>
     <div class="buttons-container">
       <div class="buttons">

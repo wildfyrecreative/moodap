@@ -94,7 +94,12 @@ li a.vote-img:hover{border: 0; background: transparent}
 #quote{position: absolute; top: 20px; left: 50%; width: 330px;}
 #quote p{text-align: left; padding: 0 10px 5px 10px; line-height: 1.2em}
 
-#idle-image{position:relative; top:-100px}
+#idle-image{
+	width: 900px;
+	height:500px;
+	overflow:hidden;
+	margin: 0px auto;
+}
 #idle-image img{
 	max-height: 550px;
 	max-width: 900px;

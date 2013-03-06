@@ -1,4 +1,4 @@
-<% if @location.active %>
+<% if @location.active && @survey %>
   <h1><%=@survey.question%></h1>
   <div id="answers-div">
   	<% if @survey.scale == 2 %>

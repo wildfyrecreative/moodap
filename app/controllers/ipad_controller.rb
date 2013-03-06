@@ -20,7 +20,9 @@ class IpadController < ApplicationController
     ipad_location_id = cookies[:ipad_location_id]
     if ipad_location_id && !ipad_location_id.empty?
       @location = Location.find(ipad_location_id)
-      @votes_count = Vote.find_by_sql("select count(id) as votes_count from votes where survey_id = #{@location.survey.id}")
+      if @location.survey
+        @votes_count = Vote.find_by_sql("select count(id) as votes_count from votes where survey_id = #{@location.survey.id}")
+      end
       respond_to do |format|
         format.html {render :layout => false}
       end

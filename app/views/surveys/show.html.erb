@@ -1,0 +1,36 @@
+<% content_for :page_title do %>
+  <ol class="aui-nav aui-nav-breadcrumbs">
+    <li><%= link_to "Surveys", surveys_path %></li>
+  </ol>
+  <h1><%=@survey.name%></h1>
+<% end %>
+
+<% content_for :page_header_image do %>
+  <%= image_tag "project-avatar-orange-48@2x.png" %>
+<% end %>
+
+
+<% content_for :page_actions do %>
+<div class="aui-buttons">
+  <%= link_to 'Edit', edit_survey_path(@survey), :class => 'aui-button' %>
+  <%= link_to 'View votes', votes_path(:survey_id => @survey.id), :class => 'aui-button' %>
+  <%= link_to 'Destroy', @survey, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'aui-button aui-button-link' %>
+</div>
+<% end %>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<p>
+  <b>Question:</b>
+  <%= @survey.question %>
+</p>
+
+<p>
+  <b>Scale:</b>
+  <%= @survey.scale %>
+</p>
+
+<p>
+  <b>Visual:</b>
+  <%= @survey.visual %>
+</p>

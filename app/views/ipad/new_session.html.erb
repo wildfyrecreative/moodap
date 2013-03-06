@@ -1,0 +1,19 @@
+<h2>iPad login</h2>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<%= form_tag('/ipad/sign_in', :class => 'aui') do |f| %>  
+  <fieldset>
+    <div class="field-group">
+      <%= label_tag :ipad_password, 'iPad password' %>
+      <%= password_field_tag :ipad_password, '',:class => 'password' %>
+    </div>
+  </fieldset>
+  <div class="buttons-container">
+    <div class="buttons">
+      <%= submit_tag "Sign in", :class => 'aui-button aui-button-primary' %>
+      <%= link_to "Cancel", '/ipad', :class => 'aui-button aui-button-link' %>
+    </div>
+  </div>
+  <div></div>
+<% end %>

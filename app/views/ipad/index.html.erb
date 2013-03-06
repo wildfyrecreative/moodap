@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MoodApp</title>
+
+  <%= stylesheet_link_tag 'style.public' %>
+  <%= javascript_include_tag 'jquery', 'jquery_ujs', 'public.app' %>
+
+  <!--  Mobile Viewport Fix
+  j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+  device-width : Occupy full width of the screen in its current orientation
+  initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+  maximum-scale = 1.0 retains dimensions instead of zooming in if page width < device width
+  -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+  <!-- full-screen on mobile safari - only after added to home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- translucent status bar - only after added to home screen -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+</head>
+<body>
+
+<div id="header">
+	<div id="location-place">
+		<%=link_to @location.name, '/ipad/configure' %>
+	</div>
+  <%=image_tag('title.png')%>
+</div>
+
+<div id="wrapper">
+	<div id="content">
+
+  	<div id="ajax-div" style="display:none">
+
+  	</div>
+  	<div id="stats-div" style="display:none">
+
+  	</div>
+  </div>
+  <script type="text/javascript">
+
+  var display_stats = true;                               // True: will display stats after votes, false: won't do that
+  var stats_threshold = 5;                                // How many votes before we start displaying stats?
+  var refresh_stats_rate = 10000;                         // How often are the stats refreshed
+  var refresh_survey_rate = 60000;                        // How often is the whole survey refreshed
+  var display_stats_period = 5000;                        // How long do we display stats for
+  var votes_count = <%= @votes_count[0].votes_count %>;   // Cache of the number of votes when iPad is logged for first time.
+  var ping_rate = 600000;                                   // How often we ping 'Home' to detect locations that are not displayed
+      
+  $(function(){
+  	loadAnswers();
+  	showAnswers();
+  	updateStatsDiv();
+  	pingHome();
+  	setInterval( "updateStatsDiv()", refresh_stats_rate );
+  	setInterval( "pingHome()", ping_rate );
+  	setInterval( function() {
+  		loadAnswers();
+  		showAnswers();
+  	}, refresh_survey_rate);
+  });
+  
+  // This function updates the location last_ping date
+  function pingHome(){
+    $.get('/locations/<%=@location.id%>/ping');
+  }
+
+  function loadAnswers(){
+  	$.ajax({
+  	  url: '/locations/<%=@location.id%>/options',
+  	  success: function(data) {
+  	    $('#ajax-div').html(data);
+  	  },
+  	  beforeSend: function(data) {
+  	    $('#ajax-div').html('<img src="/assets/ajax.gif" alt="" />');
+  	  }
+  	});
+  }
+
+  function showAnswers(){
+  	$('#ajax-div').show();
+  	upd_answers = true;
+  }
+
+  function hideAnswers(){
+  	$('#ajax-div').hide();
+  }
+
+  function showStats(){
+  	$('#stats-div').show();
+  	upd_answers = false;
+  }
+  function hideStats(){
+  	$('#stats-div').hide();
+  }
+
+
+
+  function updateStatsDiv(){
+  	$('#stats-div').load('/locations/<%=@location.id%>/stats');
+  }
+
+  function loadStats(){
+  	$.ajax({
+  	  url: '/locations/stats',
+  	  dataType: 'html',
+  	  success: function(data) {
+  		   eval(data);
+  		}
+  	});
+  }
+
+  function saveVote(label, survey_id){
+  	$.ajax({
+  	  url: '/votes',
+  	  data: 'vote[survey_id]=' + survey_id + '&vote[location_id]=<%=@location.id%>&vote[label]=' + label,
+  	  type:'POST',
+  	  success: function(data) {
+  	  	votes_count++;
+  	  }
+  	});
+
+  	if (display_stats && (votes_count > stats_threshold)  ){
+  		hideAnswers();
+  		showStats();
+  		loadAnswers();
+  		setTimeout(function() {
+  	    hideStats();
+  		  showAnswers();
+  	}, display_stats_period);
+  	}
+  	else {
+  		loadAnswers();
+  		showAnswers();
+  	}
+  	return false;
+
+  }
+  </script>
+</div> <!-- #wrapper -->
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MoodApp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<% if content_for?(:aui_layout) %>
+  <%= yield :aui_layout %>
+<% else %>
+  <body class="ui-layout aui-theme-default">
+<% end %>
+  <div id="page">
+    
+    <%= render :partial => 'layouts/header'%>
+    
+    <section id="content" role="main">
+      <header class="aui-page-header">
+        <div class="aui-page-header-inner">
+          <% if content_for?(:page_header_image)%>
+          <div class="aui-page-header-image">
+            <div class="aui-avatar aui-avatar-xlarge aui-avatar-project">
+              <div class="aui-avatar-inner">
+                <%= yield :page_header_image %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+          <div class="aui-page-header-main">
+            <%= yield :page_title %>
+          </div>
+          <% if content_for?(:page_actions)%>
+          <div class="aui-page-header-actions">
+            <%= yield :page_actions %>
+          </div>
+          <% end %>
+        </div>
+      </header> <!-- .aui-page-header -->
+      <div class="aui-page-panel">
+        <div class="aui-page-panel-inner">
+          <section class="aui-page-panel-content">
+            
+            <%= yield %>
+    
+          </section> <!-- .aui-page-panel-content -->
+        </div> <!-- .aui-page-panel-inner -->
+      </div> <!-- .aui-page-panel -->
+    </section> <!-- #content -->
+        
+  </div> <!-- #page -->
+</body>
+</html>

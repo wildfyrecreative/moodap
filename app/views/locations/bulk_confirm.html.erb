@@ -1,0 +1,38 @@
+<% content_for :aui_layout do %>
+  <body class="ui-layout aui-theme-default aui-page-focused aui-page-focused-medium">  
+<% end %>
+
+<h2>Confirm bulk editing</h2>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<%= form_tag(bulk_perform_locations_path, :class => 'aui') do |f| %>
+  <%= hidden_field_tag :geography, @geography %>
+  <%= hidden_field_tag :survey_id, @survey.id %>
+  <%= hidden_field_tag :active, @active %>
+  <%= hidden_field_tag :inactive_text, @inactive_text %>
+  <%= hidden_field_tag :update_survey, @update_survey %>
+  <%= hidden_field_tag :update_active, @update_active %>
+  <%= hidden_field_tag :update_inactive_text, @update_inactive_text %>
+  <p>
+    Are you sure that you want to perform the following changes for surveys from <%=@geo_text%>:
+  </p>
+  <ul>
+    <% if @update_survey %>
+    <li>Change survey to <strong><%=@survey.name%></strong></li>
+    <% end%>
+    <% if @update_active %>
+    <li>Change activation status to <strong><%= @active_text %></strong></li>
+    <% end%>
+    <% if @update_inactive_text %>
+    <li>Change inactive image URL to <strong><%= @inactive_text %></strong></li>
+    <% end%>
+  </ul>
+  <div class="buttons-container">
+    <div class="buttons">
+      <%= submit_tag "Bulk edit", :class => 'aui-button aui-button-primary' %>
+      <%= link_to "Back", :back, :class => 'aui-button aui-button-link' %>
+      <%= link_to "Cancel", locations_path, :class => 'aui-button aui-button-link' %>
+    </div>
+  </div>
+<% end %>

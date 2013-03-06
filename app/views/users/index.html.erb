@@ -1,0 +1,29 @@
+<% content_for :page_title do %>
+  <h1>Users</h1>
+<% end %>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<table class="aui">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Created date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+<% @users.each do |user| %>
+  <tbody>
+    <tr>
+      <td><%= link_to user.email, user %></td>
+      <td><%=l user.created_at.to_date, :format => :long %></td>
+      <td>
+        <%= link_to 'Edit', edit_user_path(user) %>
+        |
+        <%= link_to 'Destroy', registration_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  </tbody>
+<% end %>
+</table>

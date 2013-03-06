@@ -1,0 +1,47 @@
+<% content_for :page_title do %>
+  <h1><%= @user.email %></h1>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= link_to 'Cancel my account', registration_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'aui-button aui-button-link' %>
+<% end %>
+
+<h2>Settings</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'aui' }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <fieldset>
+    <div class="field-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true, :class => 'text' %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div class="field-group">
+        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+    </div>
+    <% end %>
+
+    <div class="field-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, :autocomplete => "off", :class => 'password' %>
+      <div class="description">Leave blank if you don't want to change it</div>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, :class => 'password' %>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password, :class => 'password' %>
+      <div class="description">We need your current password to confirm your changes</div>
+    </div>
+  </fieldset>
+  <div class="buttons-container">
+    <%= f.submit "Update", :class => 'aui-button' %>
+  </div>
+<% end %>
+

@@ -1,0 +1,58 @@
+<%= render :partial => 'layouts/notifications'%>
+
+<%= form_for(@location, :html => {:class => 'aui'}) do |f| %>
+  <fieldset>
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul>
+      <% @location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, :class => 'text' %>
+    </div>
+    <div class="field-group">
+      <%= f.label :geography, 'Region' %>
+      <%= f.text_field :geography, :class => 'text' %>
+    </div>
+    <% if @surveys %>
+    <div class="field-group">
+      <%= f.label :survey_id %>
+      <%= f.select :survey_id, @surveys.collect {|s| [s.name, s.id]}, {:include_blank => 'No survey selected'}, :class => 'select' %>
+    </div>
+    <% else %>
+    <div class="aui-message warning">
+      <p>
+        You haven't created any survey yet.
+      </p>
+    </div>
+    <% end %>
+    
+    <div class="group">
+      <legend><span>Location status</span></legend>
+      <div class="checkbox">
+        <%= f.check_box :active, :class => 'checkbox' %>
+        <%= f.label :active %>
+      </div>
+    </div>
+    
+    <div class="field-group">
+      <%= f.label :inactive_text, 'Image URL' %>
+      <%= f.text_field :inactive_text, :class => 'text long-field'%>
+      <div class="description">Max 900px width and 550px height.</div>
+    </div>
+    <div class="buttons-container">
+      <div class="buttons">
+        <%= f.submit "Save", :class => 'button submit' %>
+        <%= link_to 'Cancel', :back, :class => 'cancel' %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

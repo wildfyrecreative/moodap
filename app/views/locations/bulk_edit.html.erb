@@ -1,0 +1,74 @@
+<% content_for :aui_layout do %>
+  <body class="ui-layout aui-theme-default aui-page-focused aui-page-focused-medium">  
+<% end %>
+
+<h2>Bulk edit locations</h2>
+
+<%= render :partial => 'layouts/notifications'%>
+
+<%= form_tag(bulk_confirm_locations_path, :class => 'aui') do |f| %>
+  <fieldset>
+    <div class="field-group">
+      <%= label_tag :geography, 'Region' %>
+      <select class="select" name="geography">
+        <option value="">All</option>
+        <% @geographies.each do |g| %>
+        <option value="<%= g %>"><%= g %></option>
+        <%end %>
+      </select>
+    </div>
+
+    <h3>Survey updates</h3>
+    <div class="group">
+      <legend><span>Update survey</span></legend>
+      <div class="checkbox">
+        <%= check_box_tag :update_survey, 1, false, :class => 'checkbox' %>
+        <%= label_tag 'Bulk change linked survey' %>
+        <div class="description">Check this field to update the linked survey of all selected locations</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <%= label_tag :survey_id %>
+      <%= select_tag :survey_id, options_from_collection_for_select(@surveys, "id", "name"), :class => 'select' %>
+    </div>
+    
+    <h3>Activation status updates</h3>
+    <div class="group">
+      <legend><span>Update activation status</span></legend>
+      <div class="checkbox">
+        <%= check_box_tag :update_active, 1, false, :class => 'checkbox' %>
+        <%= label_tag 'Bulk change activation tatus' %>
+        <div class="description">Check this field to update the activation status of all selected locations</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <%= label_tag :status %>
+      <select class="select" name="active">
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+      </select>
+    </div>
+    
+    <h3>Inactive image URL</h3>
+    <div class="group">
+      <legend><span>Update inactive image</span></legend>
+      <div class="checkbox">
+        <%= check_box_tag :update_inactive_text, 1, false, :class => 'checkbox' %>
+        <%= label_tag 'Bulk change inactive image URL' %>
+        <div class="description">Check this field to update the inactive image URL of all selected locations</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <%= label_tag :inactive_text, 'Image URL' %>
+      <%= text_field_tag :inactive_text, '', :class => 'text long-field'%>
+    </div>
+    
+    
+  </fieldset>
+  <div class="buttons-container">
+    <div class="buttons">
+      <%= submit_tag "Bulk edit", :class => 'aui-button aui-button-primary' %>
+      <%= link_to "Cancel", locations_path, :class => 'aui-button aui-button-link' %>
+    </div>
+  </div>
+<% end %>

@@ -45,7 +45,11 @@
   var refresh_stats_rate = 60000;                         // How often are the stats refreshed
   var refresh_survey_rate = 60000;                        // How often is the whole survey refreshed
   var display_stats_period = 5000;                        // How long do we display stats for
+  <% if @votes_count %>
   var votes_count = <%= @votes_count[0].votes_count %>;   // Cache of the number of votes when iPad is logged for first time.
+  <% else %>
+  var votes_count = 0;
+  <% end %>
   var ping_rate = 60000;                                   // How often we ping 'Home' to detect locations that are not displayed
       
   $(function(){

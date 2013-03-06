@@ -66,7 +66,7 @@ module Moodapp
     # Devise specific config for deployment on Heroku.
     config.assets.initialize_on_precompile = false
     
-    config.assets.precompile += %w( style.public.css )
+    config.assets.precompile += %w( style.public.css jquery.js jquery_ujs.js public.app.js)
     
     # Changing the default generators
     config.generators do |g|

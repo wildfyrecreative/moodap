@@ -41,6 +41,10 @@ group :test do
   gem "capybara", ">= 2.0.2"  
 end
 
+group :production do
+  gem 'pg'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password

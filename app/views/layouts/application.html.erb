@@ -9,12 +9,12 @@
 <% if content_for?(:aui_layout) %>
   <%= yield :aui_layout %>
 <% else %>
-  <body class="ui-layout aui-theme-default">
+  <body class="aui-layout aui-theme-default aui-page-fixed">
 <% end %>
   <div id="page">
-    
+
     <%= render :partial => 'layouts/header'%>
-    
+
     <section id="content" role="main">
       <header class="aui-page-header">
         <div class="aui-page-header-inner">
@@ -40,14 +40,14 @@
       <div class="aui-page-panel">
         <div class="aui-page-panel-inner">
           <section class="aui-page-panel-content">
-            
+
             <%= yield %>
-    
+
           </section> <!-- .aui-page-panel-content -->
         </div> <!-- .aui-page-panel-inner -->
       </div> <!-- .aui-page-panel -->
     </section> <!-- #content -->
-        
+
   </div> <!-- #page -->
 </body>
 </html>

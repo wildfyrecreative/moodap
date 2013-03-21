@@ -8,8 +8,8 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require aui/aui-all
+ *= require_self
  */
 
 .fieldLabel{color: #666}
@@ -33,4 +33,40 @@
 .img_small{
 	max-width: 48px;
 	max-height:48px;
+}
+.aui-page-fixed .aui-page-panel-inner, .aui-page-fixed.aui-theme-default #content > .aui-page-header {
+    padding: 10px 40px;
+}
+.landing {
+    margin:0 auto;
+}
+.landing h1 {
+    font-size: 52px;
+    padding-top: 60px;
+}
+.landing h2 {
+    font-size: 26px;
+    padding-bottom: 60px;
+}
+.hero {
+    width:75%;
+}
+.signin {
+    width:25%;
+    padding: 130px 0 0 0;
+    text-align: center;
+}
+.aui-button.signup {
+    width:100%;
+    font-size:24px;
+    border-radius: 5px;
+}
+.aui-page-focused.aui-page-focused-medium .aui-message {
+    width:465px;
+}
+.aui-group.previews > .aui-item+.aui-item {
+    padding-left:0;
+}
+.spacetop {
+    margin-top:40px;
 }

@@ -10,10 +10,10 @@ if defined?(Bundler)
 end
 
 module Moodapp
-  
+
   # ipad pasword - temp hack to take out
   IPAD_TOKEN = "123456"
-  
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -62,12 +62,12 @@ module Moodapp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     # Devise specific config for deployment on Heroku.
     config.assets.initialize_on_precompile = false
-    
+
     config.assets.precompile += %w( style.public.css jquery.js jquery_ujs.js public.app.js)
-    
+
     # Changing the default generators
     config.generators do |g|
       g.test_framework :rspec, fixture: true
@@ -78,10 +78,10 @@ module Moodapp
       g.javascripts = false
       g.helper = false
     end
-    
+
     # Overriding the default treatment of error-fields to stop breaking the design
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
-      "#{html_tag}".html_safe 
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      "#{html_tag}".html_safe
     }
   end
 end

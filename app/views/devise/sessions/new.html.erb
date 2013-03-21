@@ -1,5 +1,5 @@
 <% content_for :aui_layout do %>
-  <body class="ui-layout aui-theme-default aui-page-focused aui-page-focused-medium">  
+  <body class="aui-layout aui-theme-default aui-page-focused aui-page-focused-medium aui-page-fixed">
 <% end %>
 
 <h2>Log in</h2>
@@ -30,7 +30,7 @@
   <div class="buttons-container">
     <div class="buttons">
       <%= f.submit "Log in", :class => 'aui-button aui-button-primary' %>
-      
+
       <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
         <%= link_to "Sign up", new_registration_path(resource_name), :class => 'aui-button' %>
       <% end -%>

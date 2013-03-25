@@ -6,15 +6,15 @@
 
 class IpadController < ApplicationController
   layout "ipad"
-  
+
   before_filter :authenticate_ipad, :except => [:index, :new_session, :sign_in]
-  
+
   def authenticate_ipad
     if !cookies[:ipad_admin] || cookies[:ipad_admin] != Moodapp::IPAD_TOKEN
       redirect_to '/ipad/new_session', :alert => "Gotta log in yo."
     end
   end
-  
+
   # This URL will be used to access the public iPad display
   def index
     ipad_location_id = cookies[:ipad_location_id]
@@ -30,38 +30,39 @@ class IpadController < ApplicationController
       redirect_to '/ipad/configure', :alert => 'You must setup a location for this iPad first'
     end
   end
-  
-  
+
+
   # Go to /ipad/configure to be able to set up the location of the iPad
   def configure
     @locations = Location.order(:name)
   end
-  
+
   def save_configuration
     cookies[:ipad_location_id] = { :value => params[:ipad_location_id], :expires => 1.year.from_now}
-    redirect_to '/ipad/configure', :notice => 'Configuration saved'
-    
+    # redirect_to '/ipad/configure', :notice => 'Configuration saved'
+    redirect_to ipad_path
+
   end
-  
+
   # iPad login page
   def new_session
-    
+
   end
-  
+
   # iPad sign in logic. The IPAD_TOKEN should be moved to a general setting that can be changed
   def sign_in
     if params[:ipad_password] == Moodapp::IPAD_TOKEN
       cookies[:ipad_admin] = { :value => Moodapp::IPAD_TOKEN, :expires => Time.now + 300}
       redirect_to '/ipad/configure'
-    else 
+    else
       redirect_to '/ipad/new_session', :alert => 'Not the right password!'
-    end    
+    end
   end
-  
+
   # Loggin out of there
   def logout
     cookies.delete :ipad_admin
     redirect_to '/ipad', :notice => 'Logged out'
   end
-  
+
 end

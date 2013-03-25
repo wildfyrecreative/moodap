@@ -7,7 +7,7 @@ gem 'rails', '3.2.12'
 
 gem 'devise', '>=2.0.0'
 gem "better_errors", ">= 0.3.2"
-
+gem "cancan", ">= 1.6.9"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -38,7 +38,7 @@ group :test do
   gem "email_spec", ">= 1.4.0"
   gem "cucumber-rails", ">= 1.3.0", :require => false
   gem "launchy", ">= 2.1.2"
-  gem "capybara", ">= 2.0.2"  
+  gem "capybara", ">= 2.0.2"
 end
 
 group :production do

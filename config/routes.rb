@@ -7,6 +7,7 @@ Moodapp::Application.routes.draw do
 
   devise_for :users
   resources :users
+  put '/user_admin' => 'users#update', :as => 'user_admin'
 
   resources :locations do
     collection do

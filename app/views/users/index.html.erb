@@ -7,23 +7,44 @@
 <table class="aui">
   <thead>
     <tr>
+      <th class="admin-col">Administrator</th>
       <th>Email</th>
       <th>Created date</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
 
-<% @users.each do |user| %>
   <tbody>
+  <% @users.each do |user| %>
     <tr>
+      <td class="admin-col">
+        <%= form_for(user, :url => user_admin_path, :html => { :method => :put, :class => 'user-row' }, :remote => true) do |f| %>
+          <%= f.hidden_field :id %>
+          <% if user.email == current_user.email %>
+          <%= f.check_box :admin, :class => 'checkbox', :disabled => 'disabled' %>
+          <% else %>
+          <%= f.check_box :admin, :class => 'checkbox' %>
+          <% end %>
+          <%= f.submit "Save", :class => 'hidden' %>
+        <% end %>
+      </td>
       <td><%= link_to user.email, user %></td>
       <td><%=l user.created_at.to_date, :format => :long %></td>
       <td>
-        <%= link_to 'Edit', edit_user_path(user) %>
-        |
         <%= link_to 'Destroy', registration_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
+  <% end %>
   </tbody>
-<% end %>
 </table>
+
+<script>
+  (function($){
+    $('form.user-row input[type="checkbox"]').on('change', function(){
+      var $this = $(this);
+      var $form = $this.parent()
+      console.log($this,$form,$this.val());
+      $form.find('input[type="submit"]').trigger('click');
+    });
+  })(AJS.$)
+</script>

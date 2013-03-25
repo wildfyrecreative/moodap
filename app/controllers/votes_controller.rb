@@ -1,6 +1,7 @@
 class VotesController < ApplicationController
   before_filter :authenticate_user!, :except => [:create]
-  
+  load_and_authorize_resource
+
   def index
     conditions = {}
     if params[:survey_id]
@@ -12,7 +13,7 @@ class VotesController < ApplicationController
       @location = Location.find(params[:location_id])
     end
     @votes = Vote.where(conditions).includes(:survey, :location).order('created_at desc')
-    
+
     respond_to do |format|
       format.html
       format.csv  do
@@ -27,7 +28,7 @@ class VotesController < ApplicationController
       end
     end
   end
-  
+
   def create
     @vote = Vote.new(params[:vote])
 
@@ -38,7 +39,7 @@ class VotesController < ApplicationController
         head 500
       end
     else
-      
+
       respond_to do |format|
         if @vote.save
           format.html { redirect_to(@vote, :notice => 'vote was successfully created.') }

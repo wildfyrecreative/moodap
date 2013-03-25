@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_user!, :except => [:options, :stats, :ping]
-  
+  load_and_authorize_resource
+
   # GET /locations
   # GET /locations.json
   def index
@@ -89,35 +90,35 @@ class LocationsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # Bulk edit page
   def bulk_edit
     @geographies = Location.select(:geography).uniq.order('geography asc').map(&:geography)
     @surveys = Survey.order(:name)
-    
+
     respond_to do |format|
       format.html
       format.json { head :no_content }
     end
   end
-  
+
   # Bulk Confirm
   def bulk_confirm
     @geography = params[:geography]
     @inactive_text = params[:inactive_text]
     @geo_text = @geography.empty? ? "all regions" : @geography
-    
+
     @survey = Survey.find(params[:survey_id])
-    
+
     @active = params[:active].to_i
     @active_text = @active == 1 ? "active" : "inactive"
-    
+
     @update_survey = params[:update_survey]
     @update_active = params[:update_active]
     @update_inactive_text = params[:update_inactive_text]
-    
+
   end
-  
+
   def bulk_perform
     geography = params[:geography]
     inactive_text = params[:inactive_text]
@@ -127,21 +128,21 @@ class LocationsController < ApplicationController
     update_active = params[:update_active].empty? ? false : true
     update_inactive_text = params[:update_inactive_text].empty? ? false : true
     success = false
-    
+
     location_params = {}
     if update_survey
       location_params[:survey_id] = survey.id
     end
-    
+
     if update_active
       location_params[:active] = params[:active]
     end
-    
+
     if update_inactive_text
       location_params[:inactive_text] = params[:inactive_text]
     end
-    
-      
+
+
     if !location_params.empty? && survey
       if geography.empty?
         Location.update_all(location_params)
@@ -149,7 +150,7 @@ class LocationsController < ApplicationController
         Location.where(:geography => geography).update_all(location_params)
       end
       success = true
-    end 
+    end
     respond_to do |format|
       if success
         format.html { redirect_to locations_url, notice: "The locations from #{geo_text} have all been updated." }
@@ -160,8 +161,8 @@ class LocationsController < ApplicationController
       end
     end
   end
-  
-  
+
+
   #### IPAD FUNCTIONS
   def options
     @location = Location.find(params[:id])
@@ -170,9 +171,9 @@ class LocationsController < ApplicationController
       format.html { render :partial => "options", :layout => false }
     end
   end
-  
+
   # Get and display stats
-  
+
   def stats
     @location = Location.find(params[:id])
     @survey = @location.survey
@@ -191,17 +192,17 @@ class LocationsController < ApplicationController
     if request.xhr?
       render :partial => 'stats_ajax'
     else
-   
+
     end
 
   end
-  
+
   # used to check if location is alive or not
   def ping
     @location = Location.find(params[:id])
-    
+
     @location.update_attribute(:last_pinged, Time.now.utc)
-    
+
     render :nothing => true,  :status => 200
   end
 end

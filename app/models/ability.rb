@@ -33,7 +33,7 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, [Location, Survey]
+      can :read, [Location, Survey, Vote]
       can :create, [Vote]
     end
   end

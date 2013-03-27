@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :authenticate_user!, :except => [:options, :stats, :ping]
   load_and_authorize_resource
+  skip_authorize_resource :only => [:options, :stats, :ping, :bulk_edit, :bulk_confirm, :bulk_perform]
 
   # GET /locations
   # GET /locations.json

@@ -13,7 +13,7 @@ You can use it to display simple surveys on iPads in different locations and col
 **2. Clone the MoodApp repository on your computer.**
 
 ```
-#! console
+#!console
 git clone -b master git@bitbucket.org:atlassianlabs/moodapp.git
 ```
 

@@ -5,6 +5,7 @@ MoodApp is a Rails based application created in Atlassian's office and used to g
 You can use it to display simple surveys on iPads in different locations and collect results in a single interface.
 
 # **Deploying MoodApp on Heroku**
+---
 
 **1. Create your account on [Heroku](https://www.heroku.com/) and install the Heroku Toolbelt.**
 
@@ -39,8 +40,11 @@ heroku rake db:migrate
 #!console
 heroku open
 ```
-
+  
+  
+  
 # **Running MoodApp on your own server**
+---
 
 **Requirements:**
 
@@ -82,8 +86,11 @@ rails s
 ```
 
 **5. You can now access your application by pointing your browser at [http://localhost:3000](http://localhost:3000).**
-
-# Getting Started with MoodApp
+  
+  
+  
+# **Getting Started with MoodApp**
+---
 
 ** 1. Create the first admin user**
 

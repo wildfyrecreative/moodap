@@ -1,10 +1,10 @@
-# Introduction
+# **Introduction**
 
 MoodApp is a Rails based application created in Atlassian's office and used to get internal feedback via iPads.
 
 You can use it to display simple surveys on iPads in different locations and collect results in a single interface.
 
-# Installing MoodApp
+# **Installing MoodApp**
 
 ## Deploying MoodApp on Heroku
 
@@ -12,7 +12,10 @@ You can use it to display simple surveys on iPads in different locations and col
 
 **2. Clone the MoodApp repository on your computer.**
 
-`git clone -b master git@bitbucket.org:atlassianlabs/moodapp.git`
+```
+#! console
+git clone -b master git@bitbucket.org:atlassianlabs/moodapp.git
+```
 
 **3. Create your new Heroku application from the MoodApp repository.**
 

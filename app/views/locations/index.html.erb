@@ -6,81 +6,19 @@
   <%= image_tag "project-avatar-blue-48@2x.png" %>
 <% end %>
 
-<% content_for :page_actions do %>
-  <div class="aui-buttons">
-    <%= link_to 'New Location', new_location_path, :class => 'aui-button' %>
-    <%= link_to 'Bulk Edit', bulk_edit_locations_path, :class => 'aui-button' %>
-  </div>
+<% if @locations.size > 0 %>
+
+  <% content_for :page_actions do %>
+    <div class="aui-buttons">
+      <%= link_to 'New Location', new_location_path, :class => 'aui-button' %>
+      <%= link_to 'Bulk Edit', bulk_edit_locations_path, :class => 'aui-button' %>
+    </div>
+  <% end %>
+
+  <%= render :partial => 'layouts/notifications'%>
+
+  <%= render :partial => 'index_locations' %>
+<% else %>
+  <%= render :partial => 'index_nolocations' %>
 <% end %>
-
-<%= render :partial => 'layouts/notifications'%>
-<p>
-  <a href="#geography_filter" aria-owns="geography_filter" aria-haspopup="true" class="aui-button aui-dropdown2-trigger aui-style-default">
-    <span class="fieldLabel">Region:</span> <%=@filter_geography || "All" %>
-  </a>
-</p>
-<div id="geography_filter" class="aui-dropdown2 aui-style-default">
-  <ul class="aui-list-truncate">
-    <li><%=link_to "All", locations_path %></a></li>
-  <% @geographies.each do |g| %>
-    <li><%=link_to g, locations_path(:filter_geography => g)%></a></li>
-  <% end %>
-  </ul>
-</div>
-
-<table class="aui">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Geography</th>
-      <th>Survey</th>
-      <th>Active</th>
-      <th>Last pinged</th>
-      <th>Inactive image</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @locations.each do |location| %>
-    <tr>
-      <td><%= link_to location.name, location %></td>
-      <td><%= location.geography %></td>
-      <td>
-        <% if location.survey %>
-          <%= location.survey.name %>
-        <% else %>
-          <span class="aui-lozenge aui-lozenge-error aui-lozenge-subtle">NO SURVEY</span>
-        <% end %>
-      </td>
-      <td>
-        <% if location.active %>
-          <span class="aui-icon aui-icon-success">Active</span>
-        <% else %>
-          <span class="aui-icon aui-icon-error">Inactive</span>
-        <% end %>
-      </td>
-      <td>
-        <% if location.last_pinged && location.last_pinged > (Time.now.utc - 5.minutes) %>
-          <span class="aui-lozenge aui-lozenge-subtle aui-lozenge-success">
-        <% else %>
-          <span class="aui-lozenge aui-lozenge-subtle aui-lozenge-error">
-        <% end %>
-        <%= location.last_pinged ? l(location.last_pinged, :format => :short) : 'Never pinged' %>
-        </span>
-      </td>
-      <td>
-        <% if location.inactive_text %>
-        <%=truncate(location.inactive_text, :length => 50)%>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to 'Edit', edit_location_path(location) %>
-        |
-        <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
 

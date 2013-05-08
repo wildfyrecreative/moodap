@@ -1,0 +1,27 @@
+<table class="aui">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Question</th>
+      <th>Scale</th>
+      <th>Visual</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @surveys.each do |survey| %>
+    <tr>
+      <td><%= link_to survey.name, survey %></td>
+      <td><%= truncate(survey.question, :length => 50) %></td>
+      <td><%= survey.scale %></td>
+      <td><%= survey.visual %></td>
+      <td>
+        <%= link_to 'Edit', edit_survey_path(survey) %>
+        |
+        <%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -6,37 +6,17 @@
   <%= image_tag "project-avatar-orange-48@2x.png" %>
 <% end %>
 
-
-<% content_for :page_actions do %>
-<%= link_to 'New Survey', new_survey_path, :class => 'aui-button' %>
-<% end %>
-
-<%= render :partial => 'layouts/notifications'%>
-
-<table class="aui">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Question</th>
-      <th>Scale</th>
-      <th>Visual</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-  <% @surveys.each do |survey| %>
-    <tr>
-      <td><%= link_to survey.name, survey %></td>
-      <td><%= truncate(survey.question, :length => 50) %></td>
-      <td><%= survey.scale %></td>
-      <td><%= survey.visual %></td>
-      <td>
-        <%= link_to 'Edit', edit_survey_path(survey) %>
-        |
-        <%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
-    </tr>
+<% if @surveys.size > 0 %>
+  <% content_for :page_actions do %>
+  <%= link_to 'New Survey', new_survey_path, :class => 'aui-button' %>
   <% end %>
-  </tbody>
-</table>
+
+  <%= render :partial => 'layouts/notifications'%>
+  
+  <%= render :partial => 'index_surveys' %>
+
+<% else %>
+
+  <%= render :partial => 'index_nosurveys' %>
+
+<% end %>

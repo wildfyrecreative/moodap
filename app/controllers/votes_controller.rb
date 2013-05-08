@@ -14,6 +14,7 @@ class VotesController < ApplicationController
       @location = Location.find(params[:location_id])
     end
     @votes = Vote.where(conditions).includes(:survey, :location).order('created_at desc')
+    
 
     respond_to do |format|
       format.html

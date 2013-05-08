@@ -76,6 +76,8 @@ class SurveysController < ApplicationController
   # DELETE /surveys/1.json
   def destroy
     @survey = Survey.find(params[:id])
+    #Destroy votes associated with the survey
+    @survey.votes.destroy_all
     @survey.destroy
 
     respond_to do |format|

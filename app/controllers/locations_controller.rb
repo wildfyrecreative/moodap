@@ -84,6 +84,8 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
+    # Destroy votes associated with the locations
+    @location.votes.destroy_all
     @location.destroy
 
     respond_to do |format|
